@@ -100,7 +100,7 @@
     /* Characters - bigger for mobile visibility */
     .character {
       position:absolute; bottom:22%;
-      width:10%; max-width:70px;
+      width:12%; max-width:82px;
       aspect-ratio:2/3;
       z-index:5; transition:transform 0.05s;
     }
@@ -151,7 +151,7 @@
     #boy .hair-fringe { top:0; left:8%; width:34%; height:16%; }
 
     /* Girl - PINK DRESS, longer skirt, cuter */
-    #girl { width:9%; max-width:62px; }
+    #girl { width:11%; max-width:74px; }
     #girl .head { border-radius:8px; }
     #girl .eye { width:16%; height:16%; }
     #girl .torso { background:var(--pink-dress); width:50%; left:25%; }
@@ -206,8 +206,8 @@
     }
     .happy-jump { animation:happyJump 1.2s ease-in-out; }
 
-    @keyframes floatHeart { 0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-25px) scale(0.5);} }
-    .heart { position:absolute; font-size:12px; pointer-events:none; animation:floatHeart 1.2s ease-out forwards; z-index:20; }
+    @keyframes floatHeart { 0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-22px) scale(0.5);} }
+    .heart { position:absolute; font-size:16px; pointer-events:none; animation:floatHeart 1.4s ease-out forwards; z-index:20; }
 
     @keyframes msgPop { 0%{opacity:0;transform:translate(-50%,-50%) scale(0.3);}15%{opacity:1;transform:translate(-50%,-50%) scale(1.05);}25%{transform:translate(-50%,-50%) scale(1);}85%{opacity:1;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,-50%) scale(0.8);} }
     .msg-popup {
@@ -281,12 +281,14 @@
 
     /* Desktop: show text instructions, hide overlay dpad */
     @media (min-width:821px) {
-      #scene { width:800px; height:500px; max-width:100vw; max-height:80vh; border:4px solid #1a1a1a; border-radius:4px; }
+      #scene { width:900px; height:560px; max-width:100vw; max-height:85vh; border:4px solid #1a1a1a; border-radius:4px; }
       #mobile-controls { display:none; }
       body { background:#1a2a1a; }
     }
     @media (max-width:820px) {
       #scene { width:100vw; height:100vh; height:100dvh; }
+      .character { width:18vw; max-width:none; }
+      #girl { width:16vw; max-width:none; }
     }
   </style>
 </head>
@@ -488,10 +490,11 @@
     // Sparkle
     var spkC=['#ffeb3b','#ff80ab','#e1bee7','#b3e5fc','#c8e6c9','#fff9c4','#f8bbd0','#fce4ec','#e8f5e9'];
     var lastSpk=0;
-    function emitSparkle(xP){var n=performance.now();if(n-lastSpk<80)return;lastSpk=n;for(var i=0;i<3;i++){var s=document.createElement('div');s.className='sparkle';var col=spkC[Math.floor(Math.random()*spkC.length)];if(Math.random()>0.4){var sym=['?','?','?','?','�'][Math.floor(Math.random()*5)];s.textContent=sym;s.style.color=col;s.style.fontSize=(8+Math.random()*6)+'px';s.style.textShadow='0 0 3px '+col;}else{s.innerHTML='<div class="sparkle-dot" style="background:'+col+';color:'+col+'"></div>';}s.style.left=(xP+2+(Math.random()-0.5)*6)+'%';s.style.bottom=(22+Math.random()*3)+'%';scene.appendChild(s);setTimeout(function(){s.remove();},800);}}
+    function emitSparkle(xP){var n=performance.now();if(n-lastSpk<80)return;lastSpk=n;for(var i=0;i<3;i++){var s=document.createElement('div');s.className='sparkle';var col=spkC[Math.floor(Math.random()*spkC.length)];if(Math.random()>0.4){var syms=['✨','★','♥','◆','✶'];var sym=syms[Math.floor(Math.random()*syms.length)];s.textContent=sym;s.style.color=col;s.style.fontSize=(8+Math.random()*6)+'px';s.style.textShadow='0 0 3px '+col;}else{s.innerHTML='<div class="sparkle-dot" style="background:'+col+';color:'+col+'"></div>';}s.style.left=(xP+2+(Math.random()-0.5)*6)+'%';s.style.bottom=(22+Math.random()*3)+'%';scene.appendChild(s);setTimeout(function(){s.remove();},800);}}
 
     // Main
     var dayCount=getDayCount();
+    dayCount = 50
     if(dayCount>500)dayCount = 500
     
  
@@ -502,7 +505,7 @@
     var hugBtn=document.getElementById('hug-btn');
     var hugMob=document.getElementById('hug-mob');
 
-    dayCounter.textContent='Day '+dayCount+' � '+dayCount+(dayCount===1?' flower':' flowers');
+    dayCounter.textContent='Day '+dayCount+' 🌸 '+dayCount+(dayCount===1?' flower':' flowers');
 
     function calcFX(i){var sw=scene.offsetWidth||400;return sw*0.08+seededRandom(i+42)*sw*0.82;}
     function calcFY(i){return seededRandom(i+99)*60;}
@@ -512,7 +515,30 @@
     function delay(ms){return new Promise(function(r){setTimeout(r,ms);});}
     function animWalk(el,f,t,dur){return new Promise(function(res){var s=performance.now(),legs=el.querySelectorAll('.leg');function st(ts){var p=Math.min((ts-s)/dur,1),e=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;el.style.left=(f+(t-f)*e)+'%';var lp=Math.floor(ts/150)%2;if(legs.length>=2){legs[0].style.transform=lp?'rotate(5deg)':'rotate(-5deg)';legs[1].style.transform=lp?'rotate(-5deg)':'rotate(5deg)';}if(p<1)requestAnimationFrame(st);else{legs.forEach(function(l){l.style.transform='';});res();}}requestAnimationFrame(st);});}
 
-    function spawnHearts(x,y,n){for(var i=0;i<n;i++){var h=document.createElement('div');h.className='heart';h.textContent='?';h.style.left=(x+(Math.random()-0.5)*6)+'%';h.style.top=(y+Math.random()*3)+'%';h.style.animationDelay=(i*0.12)+'s';h.style.color=i%2?'#e91e63':'#ff5722';scene.appendChild(h);setTimeout(function(){h.remove();},1400);}}
+    function spawnHearts(x,y,n){
+      var heartSymbols=['\u2764','\u2665','\u2764','\u2665'];
+      // Try to calculate y from actual character positions on screen
+      var sceneRect=scene.getBoundingClientRect();
+      var boyRect=boy.getBoundingClientRect();
+      var girlRect=girl.getBoundingClientRect();
+      // Use top of the higher character's head, offset slightly above it
+      var topY=Math.min(boyRect.top,girlRect.top);
+      var aboveHeadPx=topY-sceneRect.top-10;
+      var dynamicY=(aboveHeadPx/sceneRect.height)*100;
+      var useY=dynamicY>0?dynamicY:y;
+      for(var i=0;i<n;i++){
+        var h=document.createElement('div');
+        h.className='heart';
+        h.textContent=heartSymbols[i%heartSymbols.length];
+        h.style.left=(x+(Math.random()-0.5)*7)+'%';
+        h.style.top=(useY+Math.random()*3)+'%';
+        h.style.animationDelay=(i*0.15)+'s';
+        h.style.fontSize=(14+Math.random()*6)+'px';
+        h.style.color=i%2?'#e91e63':'#ff1744';
+        scene.appendChild(h);
+        setTimeout(function(){h.remove();},1500);
+      }
+    }
 
     // Face system
     var GRIN_D=12,boyPct=48,isHugging=false;
@@ -555,9 +581,9 @@
       boy.querySelector('.right-arm').style.transform='rotate(-15deg)';
       girl.querySelector('.left-arm').style.transform='rotate(15deg)';
 
-      // Small floating hearts above their heads
-      var midX=(boyPct+girlState.x)/2+4;
-      spawnHearts(midX,28,3);
+      // Small floating hearts just above their heads
+      var midX=(boyPct+girlState.x)/2+2;
+      spawnHearts(midX,52,5);
 
       await delay(1000);
 
@@ -613,7 +639,7 @@
       girl.appendChild(gbq);
       await delay(30);gbq.style.opacity='1';await delay(350);
 
-      spawnHearts(64,42,4);
+      spawnHearts(64,52,5);
       girl.classList.add('happy-jump');await delay(1100);girl.classList.remove('happy-jump');
 
       girl.removeChild(gbq);
