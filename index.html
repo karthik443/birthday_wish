@@ -493,8 +493,8 @@
     function emitSparkle(xP){var n=performance.now();if(n-lastSpk<80)return;lastSpk=n;for(var i=0;i<3;i++){var s=document.createElement('div');s.className='sparkle';var col=spkC[Math.floor(Math.random()*spkC.length)];if(Math.random()>0.4){var syms=['✨','★','♥','◆','✶'];var sym=syms[Math.floor(Math.random()*syms.length)];s.textContent=sym;s.style.color=col;s.style.fontSize=(8+Math.random()*6)+'px';s.style.textShadow='0 0 3px '+col;}else{s.innerHTML='<div class="sparkle-dot" style="background:'+col+';color:'+col+'"></div>';}s.style.left=(xP+2+(Math.random()-0.5)*6)+'%';s.style.bottom=(22+Math.random()*3)+'%';scene.appendChild(s);setTimeout(function(){s.remove();},800);}}
 
     // Main
-    var dayCount=getDayCount();
-    dayCount = 50
+    var dayCount=20+5*getDayCount();
+    
     if(dayCount>500)dayCount = 500
     
  
@@ -631,7 +631,7 @@
       boy.removeChild(bq);
 
       var msg=document.createElement('div');
-      msg.className='msg-popup';msg.textContent='happy birthday cutie :)';
+      msg.className='msg-popup';msg.textContent='Happy birthday Cutie <3';
       scene.appendChild(msg);
 
       var gbq=createBouquet();
