@@ -694,25 +694,23 @@
       // Every 3 punches show a playful message
       if(punchCount%3===0){
         var msgs=[
-          'show some mercy! ?',
-          'fantastic hitter ?',
-          'he cant take much more ?',
-          'okay okay i surrender! ??',
-          'youre too strong for me ?',
-          'my arm hurts watching this',
-          'brutal but cute ?',
-          'strongest girlfriend ever',
-          'is this love? ?',
-          'please.. not the face ?',
-          'combo breaker!! ?',
-          'have mercy woman ?',
-          'ok i deserved that one',
-          'unstoppable ?',
-          'i still love you tho ?'
+          'melliga kottave donga mohama',
+          'Wait wait ,Jara gap ivvu ',
+          'Adem kottude babu 😨',
+          'Em tintunnave ala kodthunnav',
+          'Choclate konista aapave babu',
+          'Jaali chupinchu ammai 🙏',
+          'cool down cutie',
+          'Devatha show mercy🙏',
+          'Mukku pagilindhi baboi',
+          'Neyamma, Chitakgottave babu',
         ];
         var m=document.createElement('div');
         m.className='msg-popup';
-        m.textContent=msgs[Math.floor(punchCount/3-1)%msgs.length];
+        // m.textContent=msgs[Math.floor(punchCount/3-1)%msgs.length];
+      
+  m.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+
         scene.appendChild(m);
         setTimeout(function(){m.remove();},3500);
       }
@@ -766,7 +764,7 @@
       await delay(250);
       boy.removeChild(bq);
 
-      var msg=document.createElement('div');      msg.className='msg-popup';msg.textContent='happy birthday cutie :)';
+      var msg=document.createElement('div');      msg.className='msg-popup';msg.textContent='Happy birthday Cutie <3';
       scene.appendChild(msg);
 
       var gbq=createBouquet();
