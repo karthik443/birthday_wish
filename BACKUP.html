@@ -563,7 +563,7 @@
     // Sparkle
     var spkC=['#ffeb3b','#ff80ab','#e1bee7','#b3e5fc','#c8e6c9','#fff9c4','#f8bbd0','#fce4ec','#e8f5e9'];
     var lastSpk=0;
-    function emitSparkle(xP){var n=performance.now();if(n-lastSpk<80)return;lastSpk=n;for(var i=0;i<3;i++){var s=document.createElement('div');s.className='sparkle';var col=spkC[Math.floor(Math.random()*spkC.length)];if(Math.random()>0.4){var sym=['❤','💖','💘','💝','♥'][Math.floor(Math.random()*5)];s.textContent=sym;s.style.color=col;s.style.fontSize=(8+Math.random()*6)+'px';s.style.textShadow='0 0 3px '+col;}else{s.innerHTML='<div class="sparkle-dot" style="background:'+col+';color:'+col+'"></div>';}s.style.left=(xP+2+(Math.random()-0.5)*6)+'%';s.style.bottom=(22+Math.random()*3)+'%';scene.appendChild(s);setTimeout(function(){s.remove();},800);}}
+    function emitSparkle(xP){var n=performance.now();if(n-lastSpk<80)return;lastSpk=n;for(var i=0;i<3;i++){var s=document.createElement('div');s.className='sparkle';var col=spkC[Math.floor(Math.random()*spkC.length)];if(Math.random()>0.4){var sym=['?','?','?','?','·'][Math.floor(Math.random()*5)];s.textContent=sym;s.style.color=col;s.style.fontSize=(8+Math.random()*6)+'px';s.style.textShadow='0 0 3px '+col;}else{s.innerHTML='<div class="sparkle-dot" style="background:'+col+';color:'+col+'"></div>';}s.style.left=(xP+2+(Math.random()-0.5)*6)+'%';s.style.bottom=(22+Math.random()*3)+'%';scene.appendChild(s);setTimeout(function(){s.remove();},800);}}
 
     // Main
     var dayCount=getDayCount();
@@ -694,28 +694,25 @@
       // Every 3 punches show a playful message
       if(punchCount%3===0){
         var msgs=[
-          'melliga kottave donga mohama',
-          'Wait wait ,Jara gap ivvu ',
-          'Adem kottude ayya 😨',
-          'Em tintunnave ala kodthunnav',
-          'Choclate konista aapave babu',
-          'Jaali chupinchu madam 🙏',
-          'cool down cutie',
-          'Devatha show mercy🙏',
-          'Mukku pagilindhi baboi',
-          'Neyamma, Chitakgottav😭 ',
+          'show some mercy! ?',
+          'fantastic hitter ?',
+          'he cant take much more ?',
+          'okay okay i surrender! ??',
+          'youre too strong for me ?',
+          'my arm hurts watching this',
+          'brutal but cute ?',
+          'strongest girlfriend ever',
+          'is this love? ?',
+          'please.. not the face ?',
+          'combo breaker!! ?',
+          'have mercy woman ?',
+          'ok i deserved that one',
+          'unstoppable ?',
+          'i still love you tho ?'
         ];
         var m=document.createElement('div');
         m.className='msg-popup';
-        // m.textContent=msgs[Math.floor(punchCount/3-1)%msgs.length];
-      let currentIndex = Math.floor(Math.random() * msgs.length);
-
-
-       m.textContent = msgs[currentIndex];
-        currentIndex = (currentIndex + 1) % msgs.length;
-
-  // m.textContent = msgs[Math.floor(Math.random() * msgs.length)];
-
+        m.textContent=msgs[Math.floor(punchCount/3-1)%msgs.length];
         scene.appendChild(m);
         setTimeout(function(){m.remove();},3500);
       }
@@ -769,20 +766,16 @@
       await delay(250);
       boy.removeChild(bq);
 
-      var msg=document.createElement('div');      msg.className='msg-popup';msg.textContent='Happy birthday Cutie <3';
+      var msg=document.createElement('div');
+      msg.className='msg-popup';msg.textContent='happy birthday cutie :)';
       scene.appendChild(msg);
 
       var gbq=createBouquet();
-      gbq.style.position='absolute';
-      gbq.style.top='38%';
-      gbq.style.left='-16%';
-      gbq.style.transform='scale('+(isMobile?0.7:0.4)+')';
-      gbq.style.opacity='0';
-      gbq.style.transition='opacity 0.3s';
+      gbq.style.position='absolute';gbq.style.top='38%';gbq.style.left='-16%';gbq.style.transform='scale('+(isMobile?0.7:0.4)+')';gbq.style.opacity='0';gbq.style.transition='opacity 0.3s';
       girl.appendChild(gbq);
       await delay(30);gbq.style.opacity='1';await delay(350);
 
-      // Removed spawnHearts call; use sparkle for love effect later
+      spawnHearts(64,42,4);
       girl.classList.add('happy-jump');await delay(1100);girl.classList.remove('happy-jump');
 
       girl.removeChild(gbq);
@@ -795,7 +788,7 @@
 
       await animWalk(boy,54,48,500);boyPct=48;
 
-      // Place bouquet on the ground near the girl and show love sparkle
+      // Place bouquet on the ground near the girl
       var groundBq=createBouquet();
       groundBq.className='ground-bouquet';
       groundBq.style.position='absolute';
@@ -803,7 +796,6 @@
       groundBq.style.bottom='22%';
       groundBq.style.transform='scale('+(isMobile?0.55:0.4)+')';
       scene.appendChild(groundBq);
-      emitSparkle(boyPct); // love sparkle when boy gives flower
 
       controlsEnabled=true;
     }
